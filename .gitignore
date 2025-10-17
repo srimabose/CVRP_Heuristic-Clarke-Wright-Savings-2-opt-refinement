@@ -1,0 +1,22 @@
+# OS/Editor junk
+.DS_Store
+Thumbs.db
+*.log
+
+# Python http.server artifacts
+__pycache__/
+
+# Cursor/agent tooling artifacts
+.cursor/
+.agent/
+.agent-tools/
+
+# Node (in case future tooling is added)
+node_modules/
+dist/
+build/
+
+# Env files
+.env
+.env.*
+

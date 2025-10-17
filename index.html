@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CVRP Solver</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+</head>
+<body>
+    <header class="app-header">
+        <h1>Capacitated Vehicle Routing Problem (CVRP) Solver</h1>
+        <p>Heuristic: Clarke–Wright Savings + 2‑opt refinement</p>
+    </header>
+
+    <main class="app-main">
+        <section class="controls">
+            <div class="control-group">
+                <h3>Vehicle & Run</h3>
+                <label>
+                    Vehicle capacity
+                    <input type="number" id="vehicleCapacity" value="100" min="1">
+                </label>
+                <label>
+                    Max route length (stops, optional)
+                    <input type="number" id="maxRouteStops" placeholder="e.g. 30" min="2">
+                </label>
+                <label>
+                    Use Leaflet basemap (lat/lng data)
+                    <input type="checkbox" id="useLeaflet">
+                </label>
+                <label>
+                    Distance source
+                    <select id="distanceSource">
+                        <option value="internal" selected>Internal (Euclidean)</option>
+                        <option value="rapidapi">RapidAPI Distance</option>
+                    </select>
+                </label>
+                <button id="runBtn">Run Solver</button>
+                <button id="clearBtn" class="secondary">Clear</button>
+            </div>
+
+            <div class="control-group">
+                <h3>Data Input</h3>
+                <div class="row">
+                    <button id="loadSampleBtn" class="secondary">Load Sample</button>
+                    <button id="loadTwSampleBtn" class="secondary">Load TW+Multi-Depot Sample</button>
+                    <input type="file" id="fileInput" accept=".json,.csv">
+                </div>
+                <details>
+                    <summary>Paste JSON</summary>
+                    <textarea id="jsonInput" placeholder='{"depot":{"x":0,"y":0},"customers":[{"id":1,"x":20,"y":30,"demand":10}]}'></textarea>
+                    <div class="row">
+                        <button id="useJsonBtn" class="secondary">Use JSON</button>
+                    </div>
+                </details>
+                <details>
+                    <summary>Paste CSV</summary>
+                    <p class="hint">CSV headers: type,id,x,y,demand,earliest,latest,serviceTime. Depot rows: type=depot (id unique). Customers: type=customer.</p>
+                    <textarea id="csvInput" placeholder="type,id,x,y,demand,earliest,latest,serviceTime\ndepot,D1,50,50,0,0,100000,0\ncustomer,1,20,20,10,0,600,5\ncustomer,2,80,20,20,0,600,5"></textarea>
+                    <div class="row">
+                        <button id="useCsvBtn" class="secondary">Use CSV</button>
+                    </div>
+                </details>
+            </div>
+
+            <div class="control-group">
+                <h3>Export</h3>
+                <button id="exportJsonBtn" class="secondary">Export JSON</button>
+                <button id="exportCsvBtn" class="secondary">Export CSV</button>
+            </div>
+
+            <div class="control-group">
+                <h3>External APIs (optional)</h3>
+                <label>
+                    RapidAPI Key (for distance/geocode)
+                    <input type="text" id="rapidApiKey" placeholder="paste key">
+                </label>
+                <div class="row">
+                    <button id="geocodeJsonBtn" class="secondary">Geocode JSON customers</button>
+                </div>
+                <p class="hint">Geocoding expects customers with address fields: street,city,state,postalCode,country. Fills x=lng, y=lat.</p>
+            </div>
+
+            <div class="control-group metrics">
+                <h3>Metrics</h3>
+                <div id="metrics"></div>
+            </div>
+        </section>
+
+        <section class="visualization">
+            <div id="map" class="map hidden"></div>
+            <canvas id="canvas" width="900" height="700"></canvas>
+            <div class="legend" id="legend"></div>
+        </section>
+    </main>
+
+    <section class="results">
+        <h3>Routes</h3>
+        <div id="routes"></div>
+    </section>
+
+    <footer class="app-footer">
+        <span>Built for experimentation and education. Not guaranteed optimal.</span>
+        <a href="README.md" target="_blank" rel="noreferrer">Quick Start</a>
+    </footer>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <script src="js/solver.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
+
+
