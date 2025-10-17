@@ -1,4 +1,4 @@
-# CVRP Solver (Static Website) 🔗 [LINK](cvrpsolverheurestic.netlify.app) 
+# CVRP Solver (Static Website) 🔗**Live** [CVRP Solver (Heuristic)](https://cvrpsolverheurestic.netlify.app)
 
 Heuristic solver for the Capacitated Vehicle Routing Problem (CVRP): Clarke–Wright Savings with 2‑opt refinement. Includes a canvas visualization and CSV/JSON import/export.
 
@@ -54,6 +54,7 @@ customer,2,80,20,20,0,600,5
 ## License
 
 MIT
+
 
 
 
